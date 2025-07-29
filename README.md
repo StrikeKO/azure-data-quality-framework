@@ -44,7 +44,7 @@
 
 # 
 
-# 1\. \*\*Clone\*\*: `git clone https://github.com/<your‑user>/azure-data-quality-framework.git`
+# 1\. \*\*Clone\*\*
 
 # 2\. \*\*Provision\*\* Azure resources: `cd terraform \&\& terraform init \&\& terraform apply`
 
