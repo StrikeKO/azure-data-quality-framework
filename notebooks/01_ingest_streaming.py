@@ -7,6 +7,27 @@ data_context_root_dir = "/Workspace/Repos/your‑user/azure‑data‑quality‑f
 
 # Create a DataContext object:
 context = ge.data_context.DataContext(data_context_root_dir)
+
+# Register the Delta table as a GE datasource (if not already in context)
+datasource_name = "delta_bronze_source"
+
+if datasource_name not in context.list_datasources():
+    context.add_datasource(
+        name=datasource_name,
+        class_name="Datasource",
+        execution_engine={
+            "class_name": "SparkDFExecutionEngine",
+            "spark_config": {"spark.master": "local[*]"}
+        },
+        data_connectors={
+            "default_runtime_data_connector_name": {
+                "class_name": "RuntimeDataConnector",
+                "batch_identifiers": ["default_identifier_name"]
+            }
+        }
+    )
+
+
 # Databricks notebook source
 # 01_ingest_streaming.py
 # Sample PySpark notebook to ingest from Azure Event Hub into a Delta Lake bronze table
